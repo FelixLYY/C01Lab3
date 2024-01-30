@@ -59,6 +59,24 @@ function App() {
 
   const deleteAllNotes = () => {
     // Code for DELETE all notes here
+    try {
+      fetch("http://localhost:4000/deleteAllNotes", {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+        },
+      }).then(
+        async (response) => {
+            if (!response.ok) {
+                console.log("Served failed:", response.status);
+            } else {
+                deleteAllNotesState();
+            }
+        }
+      );
+    } catch (error) {
+        console.log("Fetch function failed", error);
+    }
   };
 
   // -- Dialog functions --
@@ -93,6 +111,7 @@ function App() {
 
   const deleteAllNotesState = () => {
     // Code for modifying state after DELETE all here
+    setNotes([]);
   };
 
   const patchNoteState = (_id, title, content) => {
