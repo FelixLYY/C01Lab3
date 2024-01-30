@@ -113,7 +113,6 @@ app.patch("/patchNote/:noteId", express.json(), async (req, res) => {
     if (!ObjectId.isValid(noteId)) {
       return res.status(400).json({ error: "Invalid note ID." });
     }
-
     // Basic body request check
     const { title, content } = req.body;
     if (!title && !content) {
@@ -122,11 +121,9 @@ app.patch("/patchNote/:noteId", express.json(), async (req, res) => {
         .json({ error: "Must have at least one of title or content." });
     }
 
-    
     // Find note with given ID
     const collection = db.collection(COLLECTIONS.notes);
     const data = await collection.updateOne({
-      username: decoded.username,
       _id: new ObjectId(noteId),
     }, {
       $set: {

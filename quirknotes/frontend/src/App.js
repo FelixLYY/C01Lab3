@@ -80,6 +80,14 @@ function App() {
 
   const patchNoteState = (_id, title, content) => {
     // Code for modifying state after PATCH here
+    setNotes((prevNotes) => {
+        return prevNotes.map((note) => {
+            if(note._id === _id){
+                return { ...note, title: title, content: content };
+            }
+            return note;
+        });
+      });
   };
 
   return (
@@ -122,7 +130,7 @@ function App() {
           initialNote={dialogNote}
           closeDialog={closeDialog}
           postNote={postNoteState}
-          // patchNote={patchNoteState}
+          patchNote={patchNoteState}
         />
       </header>
     </div>
