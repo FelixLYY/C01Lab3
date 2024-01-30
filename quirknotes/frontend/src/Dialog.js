@@ -42,7 +42,7 @@ function Dialog({ open, initialNote, closeDialog, postNote: postNoteState, patch
         } else {
           await response.json().then((data) => {
             postNoteState(data.insertedId, note.title, note.content);
-            //setStatus("Note posted!") // Can be replaced with close(), if you want!
+            setStatus("Note posted!") // Can be replaced with close(), if you want!
             close();
           });
         }
@@ -69,7 +69,9 @@ function Dialog({ open, initialNote, closeDialog, postNote: postNoteState, patch
           } else {
             await response.json().then((data) => {
               patchNoteState(note._id, note.title, note.content);
-            });
+              setStatus("Note updated!") // Can be replaced with close(), if you want!
+              close();
+              });
           }
         });
       } catch (error) {

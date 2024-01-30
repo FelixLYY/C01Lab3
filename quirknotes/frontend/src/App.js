@@ -39,6 +39,22 @@ function App() {
 
   const deleteNote = (entry) => {
     // Code for DELETE here
+    try {
+      fetch("http://localhost:4000/deleteNote/" + entry._id, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+        },
+      }).then(async (response) => {
+        if (!response.ok) {
+          console.log("Served failed:", response.status);
+        } else {
+          deleteNoteState(entry);
+        }
+      });
+    } catch (error) {
+      console.log("Fetch function failed:", error);
+    }
   };
 
   const deleteAllNotes = () => {
@@ -70,8 +86,9 @@ function App() {
     setNotes((prevNotes) => [...prevNotes, { _id, title, content }]);
   };
 
-  const deleteNoteState = () => {
+  const deleteNoteState = (entry) => {
     // Code for modifying state after DELETE here
+    setNotes((prevNotes) => prevNotes.filter((note) => note._id !== entry._id));
   };
 
   const deleteAllNotesState = () => {

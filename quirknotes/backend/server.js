@@ -93,7 +93,6 @@ app.delete("/deleteNote/:noteId", express.json(), async (req, res) => {
       _id: new ObjectId(noteId),
     });
 
-
     if (data.deletedCount === 0) {
       return res
         .status(404)
